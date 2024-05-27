@@ -1,0 +1,13 @@
+.contentBlock {
+    height: 730px;
+    width: 1200px;
+    margin: auto;
+}
+
+@media (max-width: 500px){
+    .contentBlock {
+        height: 480px;
+        width: auto;
+        margin: auto;
+    }
+}

@@ -1,0 +1,15 @@
+.modalImg{
+    max-width: 1200px;
+    max-height: 800px
+}
+.bottomBtn{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+@media (max-width: 500px){
+    .modalImg{
+        height: auto;
+        max-width: 300px;
+    }
+}

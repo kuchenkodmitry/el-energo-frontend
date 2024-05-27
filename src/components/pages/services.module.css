@@ -1,0 +1,16 @@
+.cardList{
+    max-width: 1200px;
+    margin: 85px auto;
+    display: grid;
+    grid-template-columns: .5fr .5fr .5fr;
+    gap: 40px;
+}
+@media (max-width: 500px){
+    .cardList{
+        width: auto;
+        margin: 45px 45px;
+        display: grid;
+        grid-template-columns: 8fr;
+        gap: 40px;
+    }
+}

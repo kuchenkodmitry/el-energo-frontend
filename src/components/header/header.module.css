@@ -1,0 +1,73 @@
+.headerBlock{
+    height: 580px;
+    background-image: url(../header/img/el-energo_001.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin: auto;
+    background-position: center;
+    margin-bottom: 150px;
+}
+.overlay{
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.199);
+}
+.navBar{
+    background-color: none;
+}
+.headerLogo{
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+.AppBar{
+    display: flex;
+    justify-content: space-between;
+}
+.content{
+    max-width: 1200px;
+    margin: auto;
+}
+.centeralBlock{
+    display: flex;
+    flex-direction: column;
+    margin: 125px 0 125px 0;
+}
+.headerCard{
+    display: flex;
+    justify-content: space-between;
+}
+.mobileContactBox{
+    background: white;
+    height: 180px;
+    border-radius: 15px;
+    filter: drop-shadow(0px 0px 5px rgba(110, 110, 110, 0.466));
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+/* @media (max-width: 600px) {
+    .headerCard{
+        display: flex;
+        flex-direction: column;
+    }
+  } */
+
+  @media (max-width: 1100px) {
+    .headerCard{
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        height: 100%;
+        margin: 0 25px 30px;
+    }
+    .headerBlock{
+        height: 430px;
+        margin-bottom: 100px; 
+    }
+    .centeralBlock{
+        display: flex;
+        flex-direction: column;
+        margin: 40px 0 35px 0;
+    }
+  }

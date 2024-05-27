@@ -1,0 +1,131 @@
+
+.input{
+    color: white;
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid white;
+    padding-top: 20px;
+    font-size: 20px;
+}
+.input:focus{
+    color: white;
+    border: none;
+    outline: none;
+    border-bottom: 2px solid white;
+    font-size: 20px;
+}
+.label{
+    color: white;
+    position: relative;
+    bottom: 28px;
+    pointer-events: none;
+    font-size: 20px;
+    transition: transform 0.3s;
+    transition-delay: 0.2s;
+}
+.input:focus + .label {
+    font-size: 12px;
+    
+}
+.inputBlock{
+    display: flex;
+    flex-direction: column;
+    width: 250px;
+    height: 60px;
+    margin-right:80px;
+}
+.input:invalid + .label{
+    bottom: 28px;
+    font-size: 20px;
+}
+.input:valid + .label{
+    bottom: 50px;
+    font-size: 12px;
+}
+.btn{
+    color: white;
+    background-color: transparent;
+    font-size: 20px;
+    padding: 11px 20px;
+    border: solid 1px;
+    border-radius: 10px;
+    width: 300px;
+}
+.inputTab{
+    display: grid;
+    grid-template-columns: .1fr .1fr;
+    grid-template-rows: .2fr .2fr;
+}
+.contactBox{
+    width: 1200px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+}
+.textContactUs{
+    color: #B7B7B7;
+    letter-spacing: 4;
+    width: 634px
+}
+.headerText{
+    color: white;
+    text-transform: uppercase;
+    width: 780px;
+    letter-spacing: 6 
+}
+
+@media (max-width: 500px){
+    .contactBox{
+        max-width: 100%;
+        align-items: center;
+        margin: auto;
+        display: flex;
+        flex-direction: column;
+    }
+    .textContactUs{
+        color: #B7B7B7;
+        letter-spacing: 4;
+        width: auto;
+    }
+    .headerText{
+        color: white;
+        text-transform: uppercase;
+        letter-spacing: 6 ;
+        width: 350px;
+    }
+    .inputBlock{
+        display: flex;
+        flex-direction: column;
+        width: auto;
+        height: 60px;
+        margin-right: 0
+    }
+    .inputTab{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+    .input{
+        margin: 0px;
+    }
+    .btn{
+        color: white;
+        background-color: transparent;
+        font-size: 20px;
+        padding: 11px 20px;
+        border: solid 1px;
+        border-radius: 10px;
+        width: 250px;
+    }
+    .label{
+        color: rgba(227, 227, 227, 0.673);
+        position: relative;
+        bottom: 28px;
+        pointer-events: none;
+        font-size: 20px;
+        transition: transform 0.3s;
+        transition-delay: 0.2s;
+        font-weight: 100;
+    }
+}

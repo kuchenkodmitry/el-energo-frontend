@@ -1,0 +1,8 @@
+.sizeImg{
+    width: 350px;
+}
+@media (max-width: 500px){
+    .sizeImg{
+        width: 150px;
+    }
+}

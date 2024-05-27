@@ -1,0 +1,70 @@
+.serviceLink{
+    font-size: 20;
+    font-weight: 'bold';
+    text-decoration: none;
+    margin-top: 20px;
+}
+.serviceLink:hover{
+    font-size: 20;
+    text-decoration: underline;
+    font-weight: 'bold';
+}
+.shadowContent{
+    background-color: rgba(255, 255, 255, 0);
+    height: 120%;
+    transition: background-color .2s linear;
+}
+.shadowContent:hover {
+    background-color: rgba(6, 6, 6, 0.612);
+    height: 105%;
+    background-size: "cover";
+    cursor: pointer;
+}
+.shadowContent:hover .cardText {
+    display: flex;
+}
+.shadowContent:hover {
+    display: flex;
+    align-items: flex-end;
+}
+
+.cardText{
+    width: 270px;
+    padding: 29px;
+    display: none;
+    margin-bottom: 100px;
+}
+a { 
+text-decoration: none;
+color: black;
+}
+.contactTitle{
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+.cardContetnt{
+    padding: 0px;
+    height: 500px ;
+    background-position: center;
+    background-size: cover ;
+}
+.cardBox{
+    min-width: 370px;
+}
+@media (max-width: 1100px){
+    .cardContetnt{
+        padding: 0px;
+        height: 450px ;
+        background-position: center;
+        background-size: cover ;
+    }
+    .cardBox{
+        min-width: 350px;
+    }
+    .shadowContent{
+        background-color: rgba(255, 255, 255, 0);
+        height: 120%;
+        transition: background-color .2s linear;
+    }
+}

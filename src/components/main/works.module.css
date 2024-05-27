@@ -1,0 +1,26 @@
+.worksBlock{
+    margin-top: 100px;
+    height: 755px;
+    background-color: #171616;
+    display: flex;
+    align-items: center;
+}
+.worksContent{
+    margin-top: 300px;
+    width: 1200px;
+    margin: auto;
+}
+@media (max-width: 500px){
+    .worksContent{
+        width: auto;
+        margin: auto;
+    }
+    .worksBlock{
+        margin-top: 50px;
+        height: 800px;
+        padding: 30px 0;
+        background-color: #171616;
+        display: flex;
+        align-items: center;
+    }
+}

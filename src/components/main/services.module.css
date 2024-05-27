@@ -1,0 +1,37 @@
+.serviceContent{
+    max-width: 1200px;
+    margin: auto;
+}
+.serviceCard{
+    display: grid;
+    grid-template-columns: .2fr .2fr .2fr;
+    justify-content: space-between;
+    grid-template-rows: auto;
+    margin-top: 60px;
+}
+@media (max-width: 1198px){
+    .serviceCard{
+        display: grid;
+        grid-template-columns: .2fr .2fr;
+        justify-content: space-around;
+        margin-top: 60px;
+    }
+    .serviceContent{
+        width: 1200px;
+        margin: auto;
+    }
+}
+
+@media (max-width: 500px){
+    .serviceCard{
+        display: grid;
+        grid-template-columns: .2fr ;
+        margin-top: 60px;
+        gap: 40px;
+    }
+    .serviceContent{
+        width: auto;
+        margin: 130px auto;
+        padding: 25px ;
+    }
+}
