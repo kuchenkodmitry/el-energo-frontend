@@ -1,70 +1,78 @@
-# Getting Started with Create React App
+# ЭлЭнерго Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Добро пожаловать в репозиторий ЭлЭнерго Frontend! Этот проект представляет собой сайт, разработанный для компании ЭлЭнерго, которая занимается электромонтажем в промышленном секторе. Сайт написан с использованием фреймворка React.
 
-## Available Scripts
+## Ссылка на сайт
 
-In the project directory, you can run:
+Для демонстрации проекта перейдите по следующей ссылке: [https://el-energo.ru/](https://el-energo.ru/)
 
-### `npm start`
+## О проекте
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Компания ЭлЭнерго специализируется на электромонтажных работах в промышленном секторе. Этот сайт был создан для демонстрации услуг компании, примеров выполненных работ, а также для упрощения обратной связи с клиентами.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Реализовано
 
-### `npm test`
+- **Главная страница**: Содержит краткое описание компании и её услуг.
+- **О компании**: Подробная информация о компании, её миссии и ценностях.
+- **Услуги**: Перечень предоставляемых услуг с подробными описаниями.
+- **Примеры работ**: Галерея примеров выполненных работ с фотографиями и описаниями.
+- **Контакты**: Контактная информация и форма для обратной связи.
+- **Админ панель**: Возможность редактирования контента сайта через удобный интерфейс.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Используемые фреймворки и библиотеки
 
-### `npm run build`
+- **React**: Основной фреймворк для разработки пользовательского интерфейса.
+- **React Router**: Для управления маршрутизацией и навигацией на сайте.
+- **Axios**: Для выполнения HTTP-запросов к API.
+- **Bootstrap**: Для создания адаптивного дизайна.
+- **Formik**: Для управления формами и валидацией.
+- **Yup**: Для валидации форм.
+- **Redux**: Для управления состоянием приложения.
+- **Styled-components**: Для стилизации компонентов.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Установка и использование
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+1. Клонируйте репозиторий
+   ```sh
+   git clone https://github.com/kuchenkodmitry/el-energo-frontend.git
+   ```
+2. Перейдите в директорию проекта
+```sh
+cd el-energo-frontend
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+3. Установите зависимости
+```sh
+npm install
+```
 
-### `npm run eject`
+4. Запустите сервер разработки
+```sh
+npm start
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+5. Откройте http://localhost:3000 для просмотра в браузере.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Страницы и элементы сайта
+**Главная страница**
+- Заголовок и приветственное сообщение: Приветствие и краткое описание предоставляемых услуг компании.
+- Баннер: Визуально привлекательный баннер с основными преимуществами компании.
+- Навигационное меню: Удобная навигация по основным разделам сайта.
+**О компании**
+- Описание компании: Подробная информация о миссии, ценностях и истории компании.
+- Команда: Информация о ключевых сотрудниках и их ролях.
+**Услуги**
+- Перечень услуг: Детальное описание всех услуг, предоставляемых компанией.
+- Цены и условия: Информация о стоимости услуг и условиях их предоставления.
+**Примеры работ**
+- Галерея: Фотографии и описания выполненных проектов.
+- Фильтры: Возможность фильтрации проектов по категориям для удобства пользователей.
+**Контакты**
+- Контактная информация: Адрес, телефон, электронная почта и карта с местоположением компании.
+- Форма обратной связи: Поля для ввода контактной информации и сообщения от пользователя.
+- Кнопка отправки: Кнопка для отправки формы, после чего заявка будет обработана менеджером.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Контакты
+Дмитрий Кученко - kuchenkodmitry@example.com
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Ссылка на проект: https://github.com/kuchenkodmitry/el-energo-frontend
