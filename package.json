@@ -13,9 +13,6 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "animate.css": "^4.1.1",
-    "net": "^1.0.2",
-    "nodemailer": "^6.9.3",
-    "os": "^0.1.2",
     "react": "^18.2.0",
     "react-alice-carousel": "^2.7.1",
     "react-animated-css": "^1.2.1",
@@ -27,11 +24,8 @@
     "react-scripts": "^5.0.1",
     "react-scroll": "^1.8.9",
     "react-snap-carousel": "^0.3.2",
-    "smtp-client": "^0.4.0",
-    "stream": "^0.0.2",
     "styled-components": "^5.3.10",
     "swiper": "^9.3.1",
-    "tls": "^0.0.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
