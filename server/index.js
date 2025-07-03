@@ -11,6 +11,7 @@ import handleValidationErrors from "./utils/handleErrors.js";
 import cors from 'cors';
 import nodemailer from 'nodemailer'
 import bodyParser from 'body-parser'
+import https from 'https'
 
 const app = express();
 
@@ -63,6 +64,26 @@ app.post("/api/send-email/", async (req, res) => {
       res.status(500).send("Error sending email");
     }
   });
+app.post('/api/send-telegram', async (req, res) => {
+  const { name, phone, email } = req.body;
+  const text = `Имя: ${name}\nТелефон: ${phone}\nEmail: ${email}`;
+  const token = process.env.TELEGRAM_TOKEN;
+  const chatId = process.env.TELEGRAM_CHAT_ID;
+  const options = {
+    hostname: 'api.telegram.org',
+    path: `/bot${token}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(text)}`,
+    method: 'GET'
+  };
+  const tgReq = https.request(options, tgRes => {
+    tgRes.on('data', () => {});
+    tgRes.on('end', () => res.status(200).json({ message: 'Сообщение отправлено' }));
+  });
+  tgReq.on('error', err => {
+    console.error('Telegram error:', err);
+    res.status(500).json({ message: 'Ошибка отправки' });
+  });
+  tgReq.end();
+});
 app.use('/images', express.static('uploads')); // Говорим Express проверять в папке uploads для пути /images
 
 app.post("/api/contact", loginValidaton, contactCreateValidation, ContactController.create); 
