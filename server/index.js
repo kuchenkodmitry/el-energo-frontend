@@ -12,6 +12,10 @@ import cors from 'cors';
 import nodemailer from 'nodemailer'
 import bodyParser from 'body-parser'
 import https from 'https'
+import path from 'path'
+import dotenv from 'dotenv'
+
+dotenv.config({ path: path.resolve('../.env') })
 
 const app = express();
 
@@ -19,12 +23,12 @@ const app = express();
 
 
 const transporter = nodemailer.createTransport({
-    host: "smtp.yandex.ru",
-    port: 465, // Используйте 587, если хотите использовать TLS
-    secure: true, // true для 465, false для других портов
+    host: process.env.SMTP_HOST,
+    port: Number(process.env.SMTP_PORT) || 465,
+    secure: process.env.SMTP_SECURE === 'true',
     auth: {
-      user: "e-17215083@yandex.ru", // Замените на ваш email
-      pass: "dgtjsruoummkbzoh", // Пароль приложения
+      user: process.env.SMTP_USER,
+      pass: process.env.SMTP_PASS,
     },
   });
 
@@ -37,7 +41,7 @@ const storage = multer.diskStorage({
     },
 });
 
-mongoose.connect("mongodb://127.0.0.1:27017", { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log("DB connected"))
     .catch(err => console.error("DB connection error:", err));
 
@@ -52,8 +56,8 @@ app.post("/api/send-email/", async (req, res) => {
   
     try {
       await transporter.sendMail({
-        from: 'e-17215083@yandex.ru', // От кого
-        to: "elenergo34@yandex.ru", // Кому
+        from: process.env.SMTP_USER,
+        to: process.env.EMAIL_TO,
         subject: `Новый клиент ${name}`, // Тема
         text: message, // Текст письма
       });
@@ -111,10 +115,11 @@ app.post('/api/uploads', checkAuth, upload.single("image"), (req, res) => {
     });
 });
 
-// Запускаем сервер на порту 4000
-app.listen(4000, (err) => {
+const PORT = process.env.SERVER_PORT || 4000;
+// Запускаем сервер на порту
+app.listen(PORT, (err) => {
     if (err) {
         return console.log("Не запускается сервер: ", err);
     }
-    console.log("Server OK");
+    console.log("Server OK on port", PORT);
 });
