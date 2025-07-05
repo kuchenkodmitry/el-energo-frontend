@@ -14,12 +14,15 @@ import bodyParser from 'body-parser'
 import https from 'https'
 import path from 'path'
 import dotenv from 'dotenv'
+import pool, { initDB } from './db.js'
 
 dotenv.config({ path: path.resolve('../.env') })
 
 const app = express();
 
 // app.use(cors());
+
+initDB().catch(err => console.error('DB init error', err));
 
 
 const transporter = nodemailer.createTransport({
@@ -113,6 +116,32 @@ app.post('/api/uploads', checkAuth, upload.single("image"), (req, res) => {
     res.json({
         url: `/images/${req.file.originalname}`,  // Отправляем URL с новым путём для доступа к изображению
     });
+});
+
+// PostgreSQL based posts
+app.get('/api/postsdb/:category', async (req, res) => {
+  const { category } = req.params;
+  try {
+    const { rows } = await pool.query('SELECT * FROM posts WHERE category=$1 ORDER BY id DESC', [category]);
+    res.json(rows.map(r => ({ ...r, details: r.details || {} })));
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({ message: 'db error' });
+  }
+});
+
+app.post('/api/postsdb', async (req, res) => {
+  const { category, title, description, image, url, details } = req.body;
+  try {
+    const { rows } = await pool.query(
+      'INSERT INTO posts(category,title,description,image,url,details) VALUES($1,$2,$3,$4,$5,$6) RETURNING *',
+      [category, title, description, image, url, details || null]
+    );
+    res.json(rows[0]);
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({ message: 'db error' });
+  }
 });
 
 const PORT = process.env.SERVER_PORT || 4000;
