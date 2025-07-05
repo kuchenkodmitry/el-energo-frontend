@@ -6,6 +6,8 @@ import { useParams } from 'react-router-dom';
 import { PostContext } from '../context/postContext';
 import { Animated } from 'react-animated-css';
 
+const API_BASE = process.env.REACT_APP_API_BASE || '';
+
 export default function PostPage() {
   const { id } = useParams();
   const [postContext, setPostContext] = React.useContext(PostContext);
@@ -13,9 +15,11 @@ export default function PostPage() {
   React.useEffect(() => {
     if (!postContext || !postContext.url) {
       const load = async () => {
-        const s = await fetch('/api/postsdb/service').then(r => r.json());
-        const p = await fetch('/api/postsdb/project').then(r => r.json());
-        const joined = [...s, ...p];
+        const resS = await fetch(`${API_BASE}/api/postsdb/service`);
+        const resP = await fetch(`${API_BASE}/api/postsdb/project`);
+        const dataS = resS.ok ? await resS.json() : [];
+        const dataP = resP.ok ? await resP.json() : [];
+        const joined = [...dataS, ...dataP];
         const found = joined.find(e => e.url === `/${id}`);
         if (found) setPostContext(found);
       };

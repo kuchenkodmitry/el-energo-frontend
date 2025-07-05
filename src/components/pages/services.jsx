@@ -4,11 +4,19 @@ import s from './services.module.css';
 import Typography from '@mui/material/Typography/Typography';
 import { Animated } from 'react-animated-css';
 
+const API_BASE = process.env.REACT_APP_API_BASE || '';
+
 function Services() {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    fetch('/api/postsdb/service').then(r => r.json()).then(setPosts);
+    const load = async () => {
+      const res = await fetch(`${API_BASE}/api/postsdb/service`);
+      if (res.ok) {
+        setPosts(await res.json());
+      }
+    };
+    load();
   }, []);
 
   const CardList = posts.map(card => (

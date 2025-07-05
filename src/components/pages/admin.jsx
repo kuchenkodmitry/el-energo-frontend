@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
+const API_BASE = process.env.REACT_APP_API_BASE || '';
+
 function Admin() {
   const [service, setService] = useState({ title: '', description: '', image: '', url: '' });
   const [project, setProject] = useState({ title: '', description: '', image: '', url: '' });
@@ -7,30 +9,39 @@ function Admin() {
   const [projects, setProjects] = useState([]);
 
   useEffect(() => {
-    fetch('/api/postsdb/service').then(r => r.json()).then(setServices);
-    fetch('/api/postsdb/project').then(r => r.json()).then(setProjects);
+    const load = async () => {
+      const resS = await fetch(`${API_BASE}/api/postsdb/service`);
+      if (resS.ok) setServices(await resS.json());
+      const resP = await fetch(`${API_BASE}/api/postsdb/project`);
+      if (resP.ok) setProjects(await resP.json());
+    };
+    load();
   }, []);
 
   const handleServiceSubmit = async (e) => {
     e.preventDefault();
-    await fetch('/api/postsdb', {
+    await fetch(`${API_BASE}/api/postsdb`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ ...service, category: 'service' })
     });
-    const data = await fetch('/api/postsdb/service').then(r => r.json());
-    setServices(data);
+    const res = await fetch(`${API_BASE}/api/postsdb/service`);
+    if (res.ok) {
+      setServices(await res.json());
+    }
   };
 
   const handleProjectSubmit = async (e) => {
     e.preventDefault();
-    await fetch('/api/postsdb', {
+    await fetch(`${API_BASE}/api/postsdb`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ ...project, category: 'project' })
     });
-    const data = await fetch('/api/postsdb/project').then(r => r.json());
-    setProjects(data);
+    const res = await fetch(`${API_BASE}/api/postsdb/project`);
+    if (res.ok) {
+      setProjects(await res.json());
+    }
   };
 
   return (

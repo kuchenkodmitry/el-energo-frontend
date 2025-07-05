@@ -5,12 +5,20 @@ import Typography from '@mui/material/Typography/Typography';
 import { Animated } from 'react-animated-css';
 import { PostContext } from '../context/postContext';
 
+const API_BASE = process.env.REACT_APP_API_BASE || '';
+
 function CompanyProjects() {
   const [posts, setPosts] = useState([]);
   const [postContext, setPostContext] = useContext(PostContext);
 
   useEffect(() => {
-    fetch('/api/postsdb/project').then(r => r.json()).then(setPosts);
+    const load = async () => {
+      const res = await fetch(`${API_BASE}/api/postsdb/project`);
+      if (res.ok) {
+        setPosts(await res.json());
+      }
+    };
+    load();
   }, []);
 
   const CardList = posts.map(card => (
