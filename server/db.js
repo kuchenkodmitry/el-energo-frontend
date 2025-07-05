@@ -2,6 +2,7 @@
 import pkg from 'pg';
 const { Pool } = pkg;
 import path from 'path';
+import fs from 'fs';
 import dotenv from 'dotenv';
 
 dotenv.config({ path: path.resolve('../.env') });
@@ -15,17 +16,8 @@ const pool = new Pool({
 });
 
 export async function initDB() {
-  await pool.query(`
-    CREATE TABLE IF NOT EXISTS posts (
-      id SERIAL PRIMARY KEY,
-      category VARCHAR(50) NOT NULL,
-      title TEXT NOT NULL,
-      description TEXT,
-      image TEXT,
-      url TEXT,
-      details JSONB
-    );
-  `);
+  const schema = fs.readFileSync(new URL('./schema.sql', import.meta.url), 'utf-8');
+  await pool.query(schema);
 }
 
 export default pool;
