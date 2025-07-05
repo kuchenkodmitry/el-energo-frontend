@@ -10,6 +10,7 @@ import Services from './components/pages/services';
 import Contact from './components/pages/contact';
 import About from './components/pages/about';
 import CompanyProjects from './components/pages/companyProjects'
+import Admin from './components/pages/admin'
 import { PostContext, ModalContext, RequestCall } from './components/context/postContext';
 import { useEffect, useState } from 'react';
 import PostPage from './components/pages/post'
@@ -50,6 +51,7 @@ function App() {
       <Route path='contact' element={<Contact/>}/>
       <Route path='companyProjects' element={<CompanyProjects/>}/>
       <Route path='companyProjects/:id' element={<PostPage/>}/>
+      <Route path='admin' element={<Admin/>}/>
     </Routes>
     {/* <button onClick={() => {ScrollToUp('UsWorks')}}>to Up</button> */}
       <ContactUs />
