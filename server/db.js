@@ -1,5 +1,6 @@
 // db.js
-import { Pool } from 'pg';
+import pkg from 'pg';
+const { Pool } = pkg;
 import path from 'path';
 import dotenv from 'dotenv';
 
