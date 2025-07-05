@@ -33,7 +33,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "server": "npm --prefix server start"
+    "server": "npm --prefix server start",
+    "postinstall": "npm install --prefix server"
   },
   "eslintConfig": {
     "extends": [
