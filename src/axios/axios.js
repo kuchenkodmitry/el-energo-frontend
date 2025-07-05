@@ -1,13 +1,16 @@
-import axios from "axios"
+import axios from "axios";
+
+const baseURL = process.env.REACT_APP_API_BASE
+  ? `${process.env.REACT_APP_API_BASE}/api`
+  : '/api';
 
 const instance = axios.create({
-    baseURL: "https://el-energo.ru/api/"
-
-})
+  baseURL,
+});
 
 instance.interceptors.request.use((config) => {
-    config.headers.Authorization = window.localStorage.getItem('token') // Если любой запрос происходит проверяем авторизацию
-return config
-})
+  config.headers.Authorization = window.localStorage.getItem('token');
+  return config;
+});
 
 export default instance;

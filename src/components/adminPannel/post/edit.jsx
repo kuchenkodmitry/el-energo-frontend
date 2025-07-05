@@ -12,6 +12,8 @@ import SimpleMDE from 'react-simplemde-editor';
 import { useNavigate, useParams, useLocation } from "react-router-dom"
 import { create } from "@mui/material/styles/createTransitions"
 
+const API_BASE = process.env.REACT_APP_API_BASE || '';
+
 const styleTitle = {
   fontFamily: "SourceCodePro-SemiBold",
   fontSize: "24px",
@@ -90,7 +92,7 @@ function EditPost() {
       formData.append('image', file)
       const { data } = await axios.post('/uploads', formData)
       console.log(data)
-      setImageUrl(`http://localhost:4000${data.url}`)
+      setImageUrl(`${API_BASE}${data.url}`)
     } catch (err) {
       console.warn(err)
       alert('Ошибка загрузки фото')
@@ -104,7 +106,7 @@ function EditPost() {
       formData.append('image', file)
       const { data } = await axios.post('/uploads', formData)
       console.log(data)
-      arrayTimes.push(`http://localhost:4000${data.url}`)
+      arrayTimes.push(`${API_BASE}${data.url}`)
       console.log(arrayTimes);
       setUpdate(true)
     } catch (err) {
