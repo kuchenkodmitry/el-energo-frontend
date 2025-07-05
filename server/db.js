@@ -1,31 +1,29 @@
 // db.js
-import pkg from 'pg';
-const { Pool } = pkg;
+import sqlite3 from 'sqlite3';
+import { open } from 'sqlite';
 import path from 'path';
 import dotenv from 'dotenv';
 
 dotenv.config({ path: path.resolve('../.env') });
 
-const pool = new Pool({
-  user: process.env.DB_USER,
-  host: process.env.DB_HOST,
-  database: process.env.DB_NAME,
-  password: process.env.DB_PASSWORD,
-  port: Number(process.env.DB_PORT) || 5432,
+const dbPromise = open({
+  filename: process.env.DB_FILE || path.resolve('database.sqlite'),
+  driver: sqlite3.Database,
 });
 
 export async function initDB() {
-  await pool.query(`
+  const db = await dbPromise;
+  await db.exec(`
     CREATE TABLE IF NOT EXISTS posts (
-      id SERIAL PRIMARY KEY,
-      category VARCHAR(50) NOT NULL,
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      category TEXT NOT NULL,
       title TEXT NOT NULL,
       description TEXT,
       image TEXT,
       url TEXT,
-      details JSONB
+      details TEXT
     );
   `);
 }
 
-export default pool;
+export default dbPromise;

@@ -14,7 +14,7 @@ import bodyParser from 'body-parser'
 import https from 'https'
 import path from 'path'
 import dotenv from 'dotenv'
-import pool, { initDB } from './db.js'
+import dbPromise, { initDB } from './db.js'
 
 dotenv.config({ path: path.resolve('../.env') })
 
@@ -118,12 +118,13 @@ app.post('/api/uploads', checkAuth, upload.single("image"), (req, res) => {
     });
 });
 
-// PostgreSQL based posts
+// SQLite based posts
 app.get('/api/postsdb/:category', async (req, res) => {
   const { category } = req.params;
   try {
-    const { rows } = await pool.query('SELECT * FROM posts WHERE category=$1 ORDER BY id DESC', [category]);
-    res.json(rows.map(r => ({ ...r, details: r.details || {} })));
+    const db = await dbPromise;
+    const rows = await db.all('SELECT * FROM posts WHERE category=? ORDER BY id DESC', [category]);
+    res.json(rows.map(r => ({ ...r, details: r.details ? JSON.parse(r.details) : {} })));
   } catch (e) {
     console.error(e);
     res.status(500).json({ message: 'db error' });
@@ -133,11 +134,13 @@ app.get('/api/postsdb/:category', async (req, res) => {
 app.post('/api/postsdb', async (req, res) => {
   const { category, title, description, image, url, details } = req.body;
   try {
-    const { rows } = await pool.query(
-      'INSERT INTO posts(category,title,description,image,url,details) VALUES($1,$2,$3,$4,$5,$6) RETURNING *',
-      [category, title, description, image, url, details || null]
+    const db = await dbPromise;
+    const result = await db.run(
+      'INSERT INTO posts(category,title,description,image,url,details) VALUES(?,?,?,?,?,?)',
+      [category, title, description, image, url, details ? JSON.stringify(details) : null]
     );
-    res.json(rows[0]);
+    const row = await db.get('SELECT * FROM posts WHERE id=?', [result.lastID]);
+    res.json({ ...row, details: row.details ? JSON.parse(row.details) : {} });
   } catch (e) {
     console.error(e);
     res.status(500).json({ message: 'db error' });
