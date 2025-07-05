@@ -1,16 +1,6 @@
 import express from "express";
-import mongoose from "mongoose";
-import { registerValidaton, loginValidaton, postCreateValidation,contactCreateValidation } from "./validations.js";
-import checkAuth from "./utils/checkAuth.js";
-import * as UserController from './controllers/UserController.js';
-import * as PostController from './controllers/PostContoller.js';
-import * as ExampleContoller from "./controllers/exampleContoller.js";
-import * as ContactController from './controllers/contactController.js'
-import multer from "multer";
-import handleValidationErrors from "./utils/handleErrors.js";
 import cors from 'cors';
 import nodemailer from 'nodemailer'
-import bodyParser from 'body-parser'
 import https from 'https'
 import path from 'path'
 import dotenv from 'dotenv'
@@ -35,21 +25,6 @@ const transporter = nodemailer.createTransport({
     },
   });
 
-const storage = multer.diskStorage({
-    destination: (_, __, cb) => {
-        cb(null, 'uploads');  // Указываем директорию для хранения загруженных файлов
-    },
-    filename: (_, file, cb) => {
-        cb(null, file.originalname);  // Сохраняем файл с оригинальным именем
-    },
-});
-
-mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-    .then(() => console.log("DB connected"))
-    .catch(err => console.error("DB connection error:", err));
-
-
-const upload = multer({ storage });
 
 
 app.use(express.json()); // Объясняем приложению, что мы используем JSON
@@ -92,31 +67,6 @@ app.post('/api/send-telegram', async (req, res) => {
   tgReq.end();
 });
 app.use('/images', express.static('uploads')); // Говорим Express проверять в папке uploads для пути /images
-
-app.post("/api/contact", loginValidaton, contactCreateValidation, ContactController.create); 
-app.patch("/api/contact/:id", loginValidaton, contactCreateValidation, ContactController.update);
-app.get("/api/contact/", contactCreateValidation, ContactController.getAll);
-
-app.post("/api/auth/login", loginValidaton, handleValidationErrors, UserController.login);
-app.post('/api/auth/register', registerValidaton, handleValidationErrors, UserController.register);
-app.get("/api/auth/me", checkAuth, UserController.getMe);
-app.post("/api/posts", checkAuth, postCreateValidation, PostController.create);
-app.get("/api/posts", PostController.getAll);
-app.get('/api/posts/:id', PostController.getOne);
-app.delete("/api/posts/:id", checkAuth, PostController.remove);
-app.patch("/api/posts/:id", checkAuth, postCreateValidation, handleValidationErrors, PostController.update);
-
-app.post("/api/example", checkAuth, postCreateValidation, ExampleContoller.create);
-app.get("/api/example", ExampleContoller.getAll);
-app.get('/api/example/:id', ExampleContoller.getOne);
-app.delete("/api/example/:id", checkAuth, ExampleContoller.remove);
-app.patch("/api/example/:id", checkAuth, postCreateValidation, handleValidationErrors, ExampleContoller.update);
-
-app.post('/api/uploads', checkAuth, upload.single("image"), (req, res) => {
-    res.json({
-        url: `/images/${req.file.originalname}`,  // Отправляем URL с новым путём для доступа к изображению
-    });
-});
 
 // PostgreSQL based posts
 app.get('/api/postsdb/:category', async (req, res) => {
