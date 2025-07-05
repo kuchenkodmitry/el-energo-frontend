@@ -9,9 +9,12 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {Animated} from "react-animated-css";
+import { useSelector } from 'react-redux';
+import ReactMarkdown from 'react-markdown'
 
 function About() {
-
+    const { contact } = useSelector((state) => state.contact)
+    const isLoaded = contact.status == 'loaded'
     const [expanded, setExpanded] = React.useState(false);
 
     const handleChange = (panel) => (event, isExpanded) => {
@@ -149,18 +152,12 @@ function About() {
         </AccordionSummary>
         <AccordionDetails>
           <Typography sx={{textAlign: 'center'}}>
-            Полное наименование: Общество с ограниченной ответственностью «ЭЛЭНЕРГО»<br/>
-            Сокращенное наименование:  ООО «ЭЛЭНЕРГО»<br/>
-            Юридический адрес : 400067, Россия, Волгоградская область, г. Волгоград, ул. Закавказская, д. 5, кв. 8<br/>
-            Почтовый адрес:  400067, Россия, Волгоградская область, г. Волгоград, ул. Закавказская, д. 5, кв. 8<br/>
-            Телефон: + 7 (927) 504-02-00<br/>
-            ИНН/КПП: 3461065140 / 346101001<br/>
-            ОГРН:  1193443008330<br/>
-            Расчётный счет:  40702810309500007672<br/>
-            Корреспондентский счет:  30101810745374525104 <br/>
-            БИК банка: 044525104 <br/>
-            Банк: ООО "Банк Точка"<br/>
-            Генеральный директор: Сулейманов Михаил КонстантиновичДействует на основании Устава.<br/>
+            {<ReactMarkdown>
+                {isLoaded? contact.items[0].details : ''}
+
+            </ReactMarkdown>
+            }
+           
           </Typography>
         </AccordionDetails>
       </Accordion>

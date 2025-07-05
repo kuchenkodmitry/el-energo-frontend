@@ -10,44 +10,53 @@ import ContactBtn from './contactButtons/contactBtn'
 import { RequestCall } from "../context/postContext"
 import { useContext } from 'react'
 import {Animated} from "react-animated-css";
+import { useSelector } from 'react-redux'
 
 
-const contactsInfo = [
-    {
-        link: 'tel:+79275040200',
-        title: '+7 927 504 02 00',
-        subtitle: 'ПОЗВОНИТЬ СЕЙЧАС',
-        text: '',
-        image: <Call />
-    },
-    {
-        link: 'https://wa.me/79275040200',
-        title: '+7 927 504 02 00',
-        subtitle: 'НАПИСАТЬ В WHATS APP',
-        text: '',
-        image: <WhatsAppIcon sx={{ fontSize: 40, color: "green" }} />
-    },
-    {
-        link: 'mailto:elenergo34@gmail.com',
-        title: 'elenergo34@gmail.com',
-        subtitle: 'НАПИСАТЬ НА EMAIL',
-        text: '',
-        image: <MailOutlineIcon sx={{ fontSize: 40, color: "red" }} />
-    },
-]
 
 function Header() {
-
-    const BlockSmallCards = contactsInfo.map((card) => {
-        return (
-            <SmallCard contactsInfo={card} />
-        )
-    });
-
+    const {contact} = useSelector((state) => state.contact)
     const [requestCall,setRequestCall] = useContext(RequestCall);
+    const isLoaded = contact.status == 'loaded'
 
-    return (
-        <div styleName='qwe' className={s.headerBlock}>
+    const removeSpace = (str) => {
+        return str.replace(/\s+/g, '')
+    }
+
+    if( isLoaded == true){
+        const contactsInfo = [
+            {
+                link: `tel:${removeSpace(contact.items[0].phone)}`,
+                title: contact.items[0].phone,
+                subtitle: 'ПОЗВОНИТЬ СЕЙЧАС',
+                text: '',
+                image: <Call />
+            },
+            {
+                link: `https://wa.me/${removeSpace(contact.items[0].whatsapp)}`,
+                title: contact.items[0].whatsapp,
+                subtitle: 'НАПИСАТЬ В WHATS APP',
+                text: '',
+                image: <WhatsAppIcon sx={{ fontSize: 40, color: "green" }} />
+            },
+            {
+                link: `mailto:${contact.items[0].email}`,
+                title: contact.items[0].email,
+                subtitle: 'НАПИСАТЬ НА EMAIL',
+                text: '',
+                image: <MailOutlineIcon sx={{ fontSize: 40, color: "red" }} />
+            },
+        ]
+    
+        const BlockSmallCards = contactsInfo.map((card) => {
+            return (
+                <SmallCard contactsInfo={card} />
+            )
+        });
+    
+    
+        return (
+            <div styleName='qwe' className={s.headerBlock}>
             <div className={s.overlay}>
                 <div className={s.content}>
                     <NavBar />
@@ -145,7 +154,8 @@ function Header() {
             </div>
             <div id="headerBottom"></div>
         </div>
-    )
+        )
+    }
 }
 
 export default Header;

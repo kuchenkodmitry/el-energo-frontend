@@ -1,3 +1,14 @@
+/* Для mui card*/
+.text {
+    display: -webkit-box;        /* Используем flex-контейнер */
+    -webkit-box-orient: vertical; /* Ориентация контейнера по вертикали */
+    overflow: hidden;            /* Скрываем лишний текст */
+    text-overflow: ellipsis;     /* Добавляем многоточие */
+    -webkit-line-clamp: 3;       /* Ограничиваем количество строк */
+}
+
+/* */
+
 .serviceLink{
     font-size: 20;
     font-weight: 'bold';

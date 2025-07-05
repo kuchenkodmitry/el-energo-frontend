@@ -4,27 +4,32 @@ import Typography from '@mui/material/Typography'
 import MailIco from './icon/gmail 1.png'
 import CallIco from './icon/call.png'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
-const IconItems = [
-    {
-        src: CallIco,
-        name: "Звонок",
-        url: 'tel:+79275040200'
-    },
-    {
-        src: WhatsAppIco,
-        name: "Whats App",
-        url: 'https://wa.me/79275040200'
-    },
-    {
-        src: MailIco,
-        name: "E-mail",
-        url: 'mailto:elenergo34@gmail.com'
-    }
-]
+
+
 
 function ButtonsBox() {
     const navigate = useNavigate();
+    const {contact} = useSelector((state) => state.contact)
+    
+    const IconItems = [
+        {
+            src: CallIco,
+            name: "Звонок",
+            url: `tel:${contact.items[0].phone}`
+        },
+        {
+            src: WhatsAppIco,
+            name: "Whats App",
+            url: 'https://wa.me/79275040200'
+        },
+        {
+            src: MailIco,
+            name: "E-mail",
+            url: 'mailto:elenergo34@gmail.com'
+        }
+    ]
 
     const allBtnContacts = IconItems.map((item) => {
         return (

@@ -1,0 +1,14 @@
+.areaBox {
+    /* Button */
+    /* position: relative; */
+    width: 900px;
+    height: fit-content;
+    /* left: 300px;
+    top: -1550px; */
+    box-sizing: border-box;
+    border: 2px solid rgb(0, 0, 0);
+    box-shadow: -4px 4px 0px 0px rgb(0, 0, 0);
+    background: rgb(255, 255, 255);
+    margin-top: 40px;
+    padding-bottom: 40px;
+}

@@ -1,0 +1,137 @@
+.cardBlock {
+    border-radius: 15px;
+    background: rgb(255, 255, 255);
+    width: 252px;
+    height: 321px;
+    box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.25);
+    border: solid rgba(151, 151, 151, 0.108) 1p;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    position:relative;
+}
+.cardTitle{
+    margin: 0; /* Убираем внешний отступ */
+    -webkit-line-clamp: 2; /* Число отображаемых строк */
+    display: -webkit-box; 
+    -webkit-box-orient: vertical; /* Вертикальная ориентация */
+    overflow: hidden;
+}
+
+.listBlock {
+    display: grid;
+    grid-template-columns: .2fr .2fr .2fr;
+    gap: 15px;
+    margin: 30px auto;
+    width: 780px;
+}
+
+.btnEdit {
+    border-radius: 5px;
+    box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.25);
+    background: rgb(217, 217, 217);
+    width: 88px;
+    height: 32px;
+    cursor: pointer;
+}
+.btnBox{
+    /* margin-top: 20px; */
+    display: flex;
+    justify-content: space-between;
+    width: 230px;
+    position: absolute;
+    bottom: 10px;
+}
+
+
+/*Стили редактирования страницы  */
+
+.EditBlock{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.imageBlock{
+ display: flex;
+ align-items: center;
+ flex-direction: column;
+}
+
+.imageUploadBlock{
+    margin-top: 42px;
+    margin-bottom: 60px;
+    display: flex;
+    gap: 70px;
+}
+
+.imageUpload{
+width: 314px;
+height: 209px;
+border-radius: 46px;
+box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.inputUploadImage{
+width: 325px;
+display: flex;
+flex-direction: column;
+gap: 30px
+}
+
+.titleEdit{
+    margin-top: 40px;
+    display: flex;
+    justify-content: space-between;
+    gap: 120px;
+}
+
+.inputAndButton{
+display: flex;
+gap: 20px
+}
+
+.btnUpload{
+width: 109px;
+height: 38px;
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 16px 18px 16px 18px;
+border: 2px solid rgb(0, 0, 0);
+box-shadow: -4px 4px 0px 0px rgb(0, 0, 0);
+background: rgb(255, 255, 255);
+font-family: "SourceCodePro-SemiBold";
+font-size: 16px;
+line-height: 100%;
+letter-spacing: 0%;
+cursor: pointer;
+}
+.mdeEditor{
+    width: 100%;
+    margin-top: 15px;
+}
+.editorBlock{
+    width: 656px;
+}
+.savePost{
+    margin-top: 75px;
+width: 526px;
+height: 48px;
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 16px 18px 16px 18px;
+box-sizing: border-box;
+border: 2px solid rgb(0, 0, 0);
+box-shadow: -4px 4px 0px 0px rgb(0, 0, 0);
+background: rgb(255, 255, 255);
+font-family: "SourceCodePro-SemiBold";
+font-size: 24px;
+line-height: 100%;
+letter-spacing: 0%;
+cursor: pointer;
+}

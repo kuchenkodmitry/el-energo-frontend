@@ -78,7 +78,7 @@ export function ModalWindows() {
                         flexDirection: 'column',
                         alignItems: 'center',
                         '@media (max-height: 1080px)': {
-                            height: "800px",
+                            height: "auto",
                             width: '600px'
                           },
                           '@media (max-height: 768px)': {
@@ -99,7 +99,7 @@ export function ModalWindows() {
                             <img onClick={handleBack} style={{ transform: "rotate(180deg)", cursor: "pointer" }} src={ArrowIco} height='50px' alt="" />
                             <p>{imgNum} из {countImage}</p>
                             <img onClick={handleNext} style={{ cursor: "pointer" }} src={ArrowIco} height='50px' alt="" />
-                            <button className={s.btn} onClick={handleClose}>Закрыть</button>
+                            {/* <button className={s.btn} onClick={handleClose}>Закрыть</button> */}
                        </div>
                     </Box>
                 </Modal>}

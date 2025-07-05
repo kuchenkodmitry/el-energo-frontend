@@ -13,27 +13,18 @@ function ContactUs() {
 
     const { register, formState: { errors }, handleSubmit } = useForm();
 
-    async function onSubmit(data) {
-        try {
-            const response = await fetch('/api/send-telegram', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    name: data.name,
-                    phone: data.phone,
-                    email: data.mail
-                })
-            });
-            if (response.ok) {
-                alert('Заявка отправлена');
-            } else {
-                alert('Ошибка отправки');
-            }
-        } catch (e) {
-            alert('Ошибка отправки');
-        }
+    function onSubmit(data) {
+        window.Email.send({
+            Host: "smtp.elasticemail.com",
+            Username: "elenergo34@gmail.com",
+            Password: "3E5AC02565E51C89D2B8DB44B11779986186",
+            To: "elenergo34@yandex.ru",
+            From: "elenergo34@gmail.com",
+            Subject: "Новый клиент",
+            Body: `Имя: ${data.name}, Номер телефона: ${data.phone}, Электронная почта ${data.email} `
+        }).then(
+            message => alert(message)
+        );
     }
 
 

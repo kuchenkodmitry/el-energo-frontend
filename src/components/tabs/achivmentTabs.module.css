@@ -1,6 +1,11 @@
 .sizeImg{
     width: 350px;
 }
+/* Добавьте этот стиль в ваш файл CSS */
+.sizeImg {
+    cursor: pointer; /* Устанавливает курсор в виде руки при наведении */
+}
+
 @media (max-width: 500px){
     .sizeImg{
         width: 150px;
