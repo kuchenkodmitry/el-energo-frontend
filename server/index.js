@@ -5,8 +5,12 @@ import https from 'https'
 import path from 'path'
 import dotenv from 'dotenv'
 import pool, { initDB } from './db.js'
+import { fileURLToPath } from 'url'
 
-dotenv.config({ path: path.resolve('../.env') })
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
+
+dotenv.config({ path: path.resolve(__dirname, '../.env') })
 
 const app = express();
 

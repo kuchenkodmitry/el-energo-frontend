@@ -4,8 +4,12 @@ const { Pool } = pkg;
 import path from 'path';
 import fs from 'fs';
 import dotenv from 'dotenv';
+import { fileURLToPath } from 'url';
 
-dotenv.config({ path: path.resolve('../.env') });
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+dotenv.config({ path: path.resolve(__dirname, '../.env') });
 
 const pool = new Pool({
   user: process.env.DB_USER,
