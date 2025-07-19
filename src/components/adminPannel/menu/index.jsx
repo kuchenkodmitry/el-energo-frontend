@@ -1,5 +1,5 @@
 import style from "./style.module.css"
-import Button from "../button/index"
+import AdminButton from "../buttons"
 import { Typography } from "@mui/material"
 import ArrowImg from "./images/Arrow1.png"
 import Hope from "./images/Hope.png"
@@ -105,9 +105,14 @@ function Menu() {
                 }}>
                     {e.menuTitle}
                 </Typography>
-                {e.btn.map((el, index) => {
-                return <Button path={el.linkTo} icon={el.ImageUrl} key={index} text={el.btnName}/>
-            })}
+                {e.btn.map((el, index) => (
+                    <AdminButton
+                        key={index}
+                        path={el.linkTo}
+                        icon={el.ImageUrl}
+                        text={el.btnName}
+                    />
+                ))}
             </div>
             )
         })}
