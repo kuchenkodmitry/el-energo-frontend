@@ -1,0 +1,20 @@
+.muneBtn{
+display: flex;
+flex-direction: row;
+text-decoration: none;
+gap: 15px;
+padding: 10px 10px;
+align-items: center;
+color: black;
+border: 2px solid rgb(0, 0, 0);
+box-shadow: -4px 4px 0px 0px rgb(0, 0, 0);
+background: rgb(255, 255, 255);
+width: 230px;
+margin-bottom: 15px;
+}
+.text{
+    color: rgb(0, 0, 0);
+line-height: 100%;
+letter-spacing: 0%;
+text-align: left;
+}
