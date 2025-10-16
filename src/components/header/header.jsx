@@ -95,7 +95,7 @@ function Header() {
                             }}
                         >ЭЛЭНЕРГО - ЭЛЕКТРОМОНТАЖНЫЕ <br /> РАБОТЫ <br />В ЭЛЕКТРОУСТАНОВКАХ 0.4 - 10 кВ</Typography>
                         <br />
-                        <Button onClick={() => {setRequestCall(true)}} sx={{ 
+                        <Button onClick={() => {setRequestCall(true)}} sx={{
                             alignSelf: 'start',
                             backgroundColor: '#292929c3',
                             padding: '10px 20px',
@@ -104,12 +104,12 @@ function Header() {
                                 backgroundColor: '#0e0e0ee2',
                                 boxShadow: "0px 0px 15px #0e0e0ee2"
                             },
-                            display: { xs: 'none', md: 'flex' }, 
+                            display: { xs: 'none', md: 'flex' },
                         }}
                             variant="contained">
-                                Заказать звонок
+                                Связаться с нами
                         </Button>
-                        <Button onClick={() => {setRequestCall(true)}} sx={{ 
+                        <Button onClick={() => {setRequestCall(true)}} sx={{
                             alignSelf: 'start',
                             backgroundColor: '#292929c3',
                             padding: '10px 20px',
@@ -122,7 +122,7 @@ function Header() {
                             display: { xs: 'flex', md: 'none' }
                         }}
                             variant="contained">
-                                Заказать звонок
+                                Связаться с нами
                         </Button>
                     </div>
                     </Animated>

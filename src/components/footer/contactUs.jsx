@@ -1,113 +1,95 @@
-import s from "./contactus.module.css"
-import { ThemeProvider, createTheme, useTheme } from '@mui/material/styles';
-import { purple } from '@mui/material/colors';
-import Input from '@mui/material/Input'
-import { outlinedInputClasses } from '@mui/material/OutlinedInput';
-import { CssBaseline, MenuItem, Stack, TextField, Box, Button } from "@mui/material";
-import { styled } from '@mui/material/styles';
-import { Typography } from '@mui/material';
-import { StrictMode } from "react";
-import {useForm} from "react-hook-form";
+import s from "./contactus.module.css";
+import { Typography } from "@mui/material";
+import TelegramIcon from "@mui/icons-material/Telegram";
+import WhatsAppIcon from "@mui/icons-material/WhatsApp";
+import MailOutlineIcon from "@mui/icons-material/MailOutline";
+import PhoneIcon from "@mui/icons-material/Phone";
+import YouTubeIcon from "@mui/icons-material/YouTube";
+import PublicIcon from "@mui/icons-material/Public";
+import { useSelector } from "react-redux";
 
 function ContactUs() {
+    const { contact } = useSelector((state) => state);
+    const contactItem = contact?.items?.[0] || {};
 
-    const { register, formState: { errors }, handleSubmit } = useForm();
+    const sanitizePhone = (value) => value?.replace(/\s+/g, "")?.replace(/[^+\d]/g, "") || "";
+    const phoneLink = contactItem.phone ? `tel:${sanitizePhone(contactItem.phone)}` : "tel:+79990000000";
+    const whatsappLink = contactItem.whatsapp ? `https://wa.me/${contactItem.whatsapp.replace(/\D/g, "")}` : "https://wa.me/79999999999";
 
-    function onSubmit(data) {
-        window.Email.send({
-            Host: "smtp.elasticemail.com",
-            Username: "elenergo34@gmail.com",
-            Password: "3E5AC02565E51C89D2B8DB44B11779986186",
-            To: "elenergo34@yandex.ru",
-            From: "elenergo34@gmail.com",
-            Subject: "Новый клиент",
-            Body: `Имя: ${data.name}, Номер телефона: ${data.phone}, Электронная почта ${data.email} `
-        }).then(
-            message => alert(message)
-        );
-    }
-
+    const socialCards = [
+        {
+            label: "Телефон",
+            value: contactItem.phone || "+7 (999) 000-00-00",
+            href: phoneLink,
+            icon: <PhoneIcon fontSize="medium" />,
+        },
+        {
+            label: "Email",
+            value: contactItem.email || "info@elenergo.ru",
+            href: contactItem.email ? `mailto:${contactItem.email}` : "mailto:info@elenergo.ru",
+            icon: <MailOutlineIcon fontSize="medium" />,
+        },
+        {
+            label: "WhatsApp",
+            value: contactItem.whatsapp || "@elenergo_support",
+            href: whatsappLink,
+            icon: <WhatsAppIcon fontSize="medium" />,
+        },
+        {
+            label: "Telegram",
+            value: "@elenergo_energy",
+            href: "https://t.me/elenergo_energy",
+            icon: <TelegramIcon fontSize="medium" />,
+        },
+        {
+            label: "VK",
+            value: "vk.com/elenergo",
+            href: "https://vk.com/elenergo",
+            icon: <PublicIcon fontSize="medium" />,
+        },
+        {
+            label: "YouTube",
+            value: "youtube.com/@elenergo",
+            href: "https://www.youtube.com/@elenergo",
+            icon: <YouTubeIcon fontSize="medium" />,
+        },
+    ];
 
     return (
-        <div style={{ height: "565px", background: "#171616", paddingTop: "100px" }}>
+        <div className={s.section}>
             <div className={s.contactBox}>
                 <Typography
-                    className={s.headerText}
-                    variant='h4'
-                    sx={{
-                        display: { xs: 'none', md: 'flex' }
-                    }}
-                >Оставьте заявку на обратный звонок </Typography>
-                <Typography
-
-                    variant='h4'
-                    sx={{
-                        marginBottom: "30px",
-                        textAlign: 'center',
-                        fontSize: '32px',
-                        color: 'white',
-                        display: { xs: 'flex', md: 'none' }
-                    }}
-                >Оставьте заявку на обратный звонок </Typography>
-                <Typography
-                    className={s.textContactUs}
-                    variant='body1'
-                    sx={{
-                        display: { xs: 'none', md: 'flex' }
-                    }}
+                    className={s.title}
+                    variant="h4"
+                    component="h2"
                 >
-                    Наши технические специалисты свяжутся с вами в ближайшее время и проконсультируют по любым вопросам
+                    Мы всегда на связи
                 </Typography>
                 <Typography
-                    className={s.textContactUs}
-                    variant='body1'
-                    sx={{
-                        margin: '20px 40px',
-                        display: { xs: 'flex', md: 'none' }
-                    }}
+                    className={s.subtitle}
+                    variant="body1"
                 >
-                    Наши технические специалисты свяжутся с вами в ближайшее время и проконсультируют по любым вопросам
+                    Задайте вопрос в удобном мессенджере или соцсети — команда ответит так же быстро, как и раньше, но теперь без форм и запросов персональных данных.
                 </Typography>
-                    <form onSubmit={handleSubmit(onSubmit)}>
-                    {errors.phone && <p style={{color: "red"}} role="alert">{errors.phone?.message}</p>}
-                    {errors.mail && <p style={{color: "red"}} role="alert">{errors.mail?.message}</p>}
-                <div className={s.inputTab}>
-                    <div className={s.inputBlock}>
-                        <input type="text" className={s.input} {...register('name')} required />
-                        <label className={s.label} htmlFor="">Имя</label>
-                    </div>
-                    <div className={s.inputBlock}>
-                        <input type="text" className={s.input} {...register('phone', { required: "Заполните поле с номером телефона",pattern: {
-            value: /\d+/,
-            message: "Это поле только для цыфр"
-          }, minLength: {
-            value: 10,
-            message: "Минимальное количество символов в номере телефона 10"
-          },  })}
-                         aria-invalid={errors.phone ? "true" : "false"}
-                        required />
-                        
-                        <label className={s.label} htmlFor="">Ваш номер</label>
-                        
-                    </div>
-                    <div className={s.inputBlock}>
-                        <input type="text" className={s.input} {...register("mail", { required: "Email Address is required",
-                    pattern:{ value: /[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}/, message: 'В электронной почте должен содержаться символ @'   }
-                    })} 
-        aria-invalid={errors.mail ? "true" : "false"}  required />
-                        <label className={s.label} htmlFor="">Ваш Email</label>
-                        
-                    </div>
-                    {/* <div className={s.inputBlock}>
-                        <textarea style={{}} type="text" className={s.input} {...register('message')} required />
-                        <label className={s.label} htmlFor="">Сообщение</label>
-                    </div> */}
+                <div className={s.socialGrid}>
+                    {socialCards.map((card) => (
+                        <a
+                            key={card.label}
+                            className={s.socialCard}
+                            href={card.href}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            <div className={s.iconWrapper}>{card.icon}</div>
+                            <p className={s.cardLabel}>{card.label}</p>
+                            <p className={s.cardValue}>{card.value}</p>
+                            <span className={s.cardAction}>Открыть</span>
+                        </a>
+                    ))}
                 </div>
-                <button type="submit" className={s.btn}>Отправить заявку</button>
-                </form> 
             </div>
         </div>
-    )
+    );
 }
 
 export default ContactUs;
