@@ -17,46 +17,59 @@ import { useSelector } from 'react-redux'
 function Header() {
     const {contact} = useSelector((state) => state.contact)
     const [requestCall,setRequestCall] = useContext(RequestCall);
-    const isLoaded = contact.status == 'loaded'
 
-    const removeSpace = (str) => {
-        return str.replace(/\s+/g, '')
+    const normalizePhone = (str = '') => str.replace(/\s+/g, '').replace(/[^+\d]/g, '')
+    const normalizeWhatsApp = (str = '') => str.replace(/\s+/g, '').replace(/[^+\d]/g, '')
+
+    const fallbackContact = {
+        phone: '+7 (999) 000-00-00',
+        whatsapp: '+7 (999) 000-00-00',
+        email: 'info@elenergo.ru',
     }
 
-    if( isLoaded == true){
-        const contactsInfo = [
-            {
-                link: `tel:${removeSpace(contact.items[0].phone)}`,
-                title: contact.items[0].phone,
-                subtitle: 'ПОЗВОНИТЬ СЕЙЧАС',
-                text: '',
-                image: <Call />
-            },
-            {
-                link: `https://wa.me/${removeSpace(contact.items[0].whatsapp)}`,
-                title: contact.items[0].whatsapp,
-                subtitle: 'НАПИСАТЬ В WHATS APP',
-                text: '',
-                image: <WhatsAppIcon sx={{ fontSize: 40, color: "green" }} />
-            },
-            {
-                link: `mailto:${contact.items[0].email}`,
-                title: contact.items[0].email,
-                subtitle: 'НАПИСАТЬ НА EMAIL',
-                text: '',
-                image: <MailOutlineIcon sx={{ fontSize: 40, color: "red" }} />
-            },
-        ]
-    
-        const BlockSmallCards = contactsInfo.map((card) => {
-            return (
-                <SmallCard contactsInfo={card} />
-            )
-        });
-    
-    
+    const contactItem = contact?.items?.[0] || {}
+    const mergedContact = {
+        phone: contactItem.phone || fallbackContact.phone,
+        whatsapp: contactItem.whatsapp || fallbackContact.whatsapp,
+        email: contactItem.email || fallbackContact.email,
+    }
+
+    const phoneLink = normalizePhone(contactItem.phone) || normalizePhone(fallbackContact.phone) || '79990000000'
+    const whatsappLink = normalizeWhatsApp(contactItem.whatsapp) || normalizeWhatsApp(fallbackContact.whatsapp) || '79990000000'
+
+    const contactsInfo = [
+        {
+            link: `tel:${phoneLink.startsWith('+') ? phoneLink : `+${phoneLink}`}`,
+            title: mergedContact.phone,
+            subtitle: 'ПОЗВОНИТЬ СЕЙЧАС',
+            text: '',
+            image: <Call />
+        },
+        {
+            link: `https://wa.me/${whatsappLink.replace('+', '')}`,
+            title: mergedContact.whatsapp,
+            subtitle: 'НАПИСАТЬ В WHATS APP',
+            text: '',
+            image: <WhatsAppIcon sx={{ fontSize: 40, color: "green" }} />
+        },
+        {
+            link: `mailto:${mergedContact.email}`,
+            title: mergedContact.email,
+            subtitle: 'НАПИСАТЬ НА EMAIL',
+            text: '',
+            image: <MailOutlineIcon sx={{ fontSize: 40, color: "red" }} />
+        },
+    ]
+
+    const BlockSmallCards = contactsInfo.map((card) => {
         return (
-            <div styleName='qwe' className={s.headerBlock}>
+            <SmallCard key={card.subtitle} contactsInfo={card} />
+        )
+    });
+
+
+    return (
+        <div styleName='qwe' className={s.headerBlock}>
             <div className={s.overlay}>
                 <div className={s.content}>
                     <NavBar />
@@ -155,7 +168,6 @@ function Header() {
             <div id="headerBottom"></div>
         </div>
         )
-    }
 }
 
 export default Header;
