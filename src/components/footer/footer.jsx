@@ -13,7 +13,7 @@ function Footer () {
             variant="p"
             sx={{letterSpacing: 4, fontSize: 15, fontWeight: 'regular'}}
             >© ООО «ЭЛЭНЕРГО» 2019-{currentYear}</Typography>
-            <div className={s.social}>
+            {/* <div className={s.social}>
                 <Link>
                 <PhoneIcon sx={{fontSize: 30, color: "black"}}/>
                 </Link>
@@ -23,7 +23,7 @@ function Footer () {
                 <Link>
                 <WhatsAppIcon sx={{fontSize: 30, color: "black"}}/>
                 </Link>
-            </div>
+            </div> */}
         </div>
     )
 }

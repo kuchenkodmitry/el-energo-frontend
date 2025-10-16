@@ -13,20 +13,20 @@ function ContactUs() {
     const contactItem = contact?.items?.[0] || {};
 
     const sanitizePhone = (value) => value?.replace(/\s+/g, "")?.replace(/[^+\d]/g, "") || "";
-    const phoneLink = contactItem.phone ? `tel:${sanitizePhone(contactItem.phone)}` : "tel:+79990000000";
-    const whatsappLink = contactItem.whatsapp ? `https://wa.me/${contactItem.whatsapp.replace(/\D/g, "")}` : "https://wa.me/79999999999";
+    const phoneLink = contactItem.phone ? `tel:${sanitizePhone(contactItem.phone)}` : "tel:+79275040200";
+    const whatsappLink = contactItem.whatsapp ? `https://wa.me/${contactItem.whatsapp.replace(/\D/g, "")}` : "https://wa.me/79275040200";
 
     const socialCards = [
         {
             label: "Телефон",
-            value: contactItem.phone || "+7 (999) 000-00-00",
+            value: contactItem.phone || "7 (927) 504-02-00",
             href: phoneLink,
             icon: <PhoneIcon fontSize="medium" />,
         },
         {
             label: "Email",
-            value: contactItem.email || "info@elenergo.ru",
-            href: contactItem.email ? `mailto:${contactItem.email}` : "mailto:info@elenergo.ru",
+            value: contactItem.email || "elenergo34@gmail.com",
+            href: contactItem.email ? `mailto:${contactItem.email}` : "mailto:elenergo34@gmail.com",
             icon: <MailOutlineIcon fontSize="medium" />,
         },
         {
@@ -41,18 +41,18 @@ function ContactUs() {
             href: "https://t.me/elenergo_energy",
             icon: <TelegramIcon fontSize="medium" />,
         },
-        {
-            label: "VK",
-            value: "vk.com/elenergo",
-            href: "https://vk.com/elenergo",
-            icon: <PublicIcon fontSize="medium" />,
-        },
-        {
-            label: "YouTube",
-            value: "youtube.com/@elenergo",
-            href: "https://www.youtube.com/@elenergo",
-            icon: <YouTubeIcon fontSize="medium" />,
-        },
+        // {
+        //     label: "VK",
+        //     value: "vk.com/elenergo",
+        //     href: "https://vk.com/elenergo",
+        //     icon: <PublicIcon fontSize="medium" />,
+        // },
+        // {
+        //     label: "YouTube",
+        //     value: "youtube.com/@elenergo",
+        //     href: "https://www.youtube.com/@elenergo",
+        //     icon: <YouTubeIcon fontSize="medium" />,
+        // },
     ];
 
     return (
@@ -69,7 +69,7 @@ function ContactUs() {
                     className={s.subtitle}
                     variant="body1"
                 >
-                    Задайте вопрос в удобном мессенджере или соцсети — команда ответит так же быстро, как и раньше, но теперь без форм и запросов персональных данных.
+                    Задайте вопрос в удобном мессенджере — команда ответит так же быстро, как и раньше, но теперь без форм и запросов персональных данных.
                 </Typography>
                 <div className={s.socialGrid}>
                     {socialCards.map((card) => (
