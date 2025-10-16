@@ -2,48 +2,86 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
+import { Button, Stack } from '@mui/material';
+import TelegramIcon from '@mui/icons-material/Telegram';
+import WhatsAppIcon from '@mui/icons-material/WhatsApp';
+import MailOutlineIcon from '@mui/icons-material/MailOutline';
+import PhoneIcon from '@mui/icons-material/Phone';
+import YouTubeIcon from '@mui/icons-material/YouTube';
+import PublicIcon from '@mui/icons-material/Public';
 import { RequestCall } from '../../context/postContext';
-import { TextField } from '@mui/material';
-import { useForm } from "react-hook-form";
+import { useSelector } from 'react-redux';
 
 const style = {
     position: 'absolute',
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    maxWidth: "400px",
+    maxWidth: '420px',
     bgcolor: 'background.paper',
-    border: '2px solid #000',
+    borderRadius: '24px',
     boxShadow: 24,
     p: 4,
-    minWidth: "300px"
+    minWidth: '320px'
 };
+
 export function ModalContact() {
     const [requestCall, setRequestCall] = React.useContext(RequestCall);
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+    const { contact } = useSelector((state) => state);
+    const contactItem = contact?.items?.[0] || {};
+
+    const sanitizePhone = (value) => value?.replace(/\s+/g, '')?.replace(/[^+\d]/g, '') || '';
+    const phoneLink = contactItem.phone ? `tel:${sanitizePhone(contactItem.phone)}` : 'tel:+79990000000';
+    const whatsappLink = contactItem.whatsapp ? `https://wa.me/${contactItem.whatsapp.replace(/\D/g, '')}` : 'https://wa.me/79999999999';
+
+    const quickLinks = [
+        {
+            label: 'Позвонить',
+            value: contactItem.phone || '+7 (999) 000-00-00',
+            href: phoneLink,
+            icon: <PhoneIcon />,
+        },
+        {
+            label: 'Написать на почту',
+            value: contactItem.email || 'info@elenergo.ru',
+            href: contactItem.email ? `mailto:${contactItem.email}` : 'mailto:info@elenergo.ru',
+            icon: <MailOutlineIcon />,
+        },
+        {
+            label: 'WhatsApp',
+            value: contactItem.whatsapp || '@elenergo_support',
+            href: whatsappLink,
+            icon: <WhatsAppIcon />,
+        },
+        {
+            label: 'Telegram',
+            value: '@elenergo_energy',
+            href: 'https://t.me/elenergo_energy',
+            icon: <TelegramIcon />,
+        },
+        {
+            label: 'VK',
+            value: 'vk.com/elenergo',
+            href: 'https://vk.com/elenergo',
+            icon: <PublicIcon />,
+        },
+        {
+            label: 'YouTube',
+            value: 'youtube.com/@elenergo',
+            href: 'https://www.youtube.com/@elenergo',
+            icon: <YouTubeIcon />,
+        },
+    ];
+
     React.useEffect(() => {
         if (requestCall === true) {
             handleOpen();
-            setRequestCall(false)
+            setRequestCall(false);
         }
-    }, [requestCall])
-    const { register, formState: { errors }, handleSubmit } = useForm();
-
-    function onSubmit(data) {
-        window.Email.send({
-            Host: "smtp.elasticemail.com",
-            Username: "elenergo34@gmail.com",
-            Password: "3E5AC02565E51C89D2B8DB44B11779986186",
-            To: "elenergo34@yandex.ru",
-            From: "elenergo34@gmail.com",
-            Subject: "Новый клиент",
-            Body: `Имя: ${data.name}, Номер телефона: ${data.phone}, Электронная почта ${data.mail} `
-        }).then(
-            message => alert(message)
-        );
-    }
+    }, [requestCall, setRequestCall]);
 
     return (
         <div>
@@ -54,44 +92,50 @@ export function ModalContact() {
                 aria-describedby="modal-modal-description"
             >
                 <Box sx={style}>
-                    <Typography id="modal-modal-title" variant="h6" component="h2">
-                        ОСТАВЬТЕ ЗАЯВКУ НА ОБРАТНЫЙ ЗВОНОК
+                    <Typography id="modal-modal-title" variant="h6" component="h2" sx={{ fontWeight: 600 }}>
+                        Мы не собираем персональные данные
                     </Typography>
-                    <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                        Наши технические специалисты свяжутся с вами в ближайшее время и проконсультируют по любым вопросам
+                    <Typography id="modal-modal-description" sx={{ mt: 1.5, color: 'rgba(0,0,0,0.7)' }}>
+                        Свяжитесь с нами напрямую через удобный канал. Выберите социальную сеть или мессенджер — команда ответит так же быстро, как и по старым формам.
                     </Typography>
-                    <form onSubmit={handleSubmit(onSubmit)} style={{display: 'flex', flexDirection: 'column'}}>
-                        {errors.phone && <p style={{ color: "red" }} role="alert">{errors.phone?.message}</p>}
-                        {errors.mail && <p style={{ color: "red" }} role="alert">{errors.mail?.message}</p>}
-                        <div style={{display: "flex", flexDirection: 'column', marginTop: '30px'}}>
-                            <TextField type="text" sx={{ maxWidth: "300px" }} id="standard-basic" label="Имя" variant="standard" {...register('name')} required />
-                            <TextField type="text" sx={{ maxWidth: "300px" }} id="standard-basic" label="Телефон" variant="standard" {...register('phone', {
-                                required: "Заполните поле с номером телефона", pattern: {
-                                    value: /\d+/,
-                                    message: "Это поле только для цыфр"
-                                }, minLength: {
-                                    value: 10,
-                                    message: "Минимальное количество символов в номере телефона 10"
-                                },
-                            })}
-                                aria-invalid={errors.phone ? "true" : "false"}
-                                required />
-                            <TextField type="text" sx={{ maxWidth: "300px" }} id="standard-basic" label="Email" variant="standard" {...register("mail", {
-                                required: "Email Address is required",
-                                pattern: { value: /[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}/, message: 'В электронной почте должен содержаться символ @' }
-                            })}
-                                aria-invalid={errors.mail ? "true" : "false"} required />
-
-                            {/* <div className={s.inputBlock}>
-                        <textarea style={{}} type="text" className={s.input} {...register('message')} required />
-                        <label className={s.label} htmlFor="">Сообщение</label>
-                    </div> */}
-                        </div>
-                        <button type="submit" style={{marginTop: '50px', maxWidth: "180px", alignSelf: "end", cursor: 'pointer',backgroundColor: "#1d1d1db3", color: 'white', padding: '10px 20px', borderRadius: '5px'}}>Отправить заявку</button>
-                    </form>
+                    <Stack spacing={1.5} sx={{ mt: 3 }}>
+                        {quickLinks.map((item) => (
+                            <Button
+                                key={item.label}
+                                component="a"
+                                href={item.href}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                variant="outlined"
+                                startIcon={item.icon}
+                                sx={{
+                                    justifyContent: 'space-between',
+                                    textTransform: 'none',
+                                    borderRadius: '14px',
+                                    borderColor: 'rgba(0,0,0,0.12)',
+                                    padding: '12px 18px',
+                                    '&:hover': {
+                                        borderColor: 'rgba(0,0,0,0.35)',
+                                        backgroundColor: 'rgba(0,0,0,0.04)'
+                                    }
+                                }}
+                            >
+                                <Box sx={{ textAlign: 'left' }}>
+                                    <Typography variant="subtitle2" sx={{ fontWeight: 600 }}>
+                                        {item.label}
+                                    </Typography>
+                                    <Typography variant="body2" sx={{ color: 'rgba(0,0,0,0.65)' }}>
+                                        {item.value}
+                                    </Typography>
+                                </Box>
+                                <Typography variant="caption" sx={{ letterSpacing: '.2em', color: 'rgba(0,0,0,0.45)' }}>
+                                    Перейти
+                                </Typography>
+                            </Button>
+                        ))}
+                    </Stack>
                 </Box>
             </Modal>
         </div>
     );
 };
-
